@@ -23,6 +23,9 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
     public List<Producto> productos = new ArrayList<>();
     public static  final int TEXTO = 1;
 
+    public static MainActivity getInstance() {
+        return instance;
+    }
 
 
     @Override
@@ -32,7 +35,12 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
 
         RecyclerView rvProductos = super.findViewById(R.id.rvProductos);
 
-        adapter = new MyAdapter(productos);
+        Handler handler = new Handler(this);
+
+        MyTheard m = new MyTheard(handler, "http://172.17.88.33:8080/listaProductos.xml", TEXTO);
+        m.start();
+
+        adapter = new MyAdapter(productos, handler);
 
         rvProductos.setAdapter(adapter);
 
@@ -40,33 +48,37 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
 
         rvProductos.setLayoutManager(layoutManager);
 
-       /* Button btn = super.findViewById(R.id.buttonAgregar);
-
-        btn.setOnClickListener(new MyListener(this));*/
-
         instance = this;
 
-        // le paso algo que impelemente el callback
-        Handler handler = new Handler(this);
 
-        MyTheard m = new MyTheard(handler, "http://192.168.2.166:8080/productos.xml", TEXTO);
-        m.start();
 
     }
 
-    public static MainActivity getInstance() {
-        return instance;
-    }
 
 
     @Override
     public boolean handleMessage(Message msg) {
-   if (msg.arg1 == TEXTO) {
-       TextView t = this.findViewById(R.id.precio);
+        this.adapter.setProductos((List<Producto>) msg.obj);
 
-       Log.d("lista,", msg.obj.toString());
-        }
+        this.productos = (List<Producto>) msg.obj;
+        Log.d("adsa",msg.obj.toString());
+
+        this.adapter.notifyDataSetChanged();
 
         return false;
+
+    }
+
+    public void controlStock(Integer boton, int index) {
+
+        Producto prod = productos.get(index);
+
+        if (boton == 1 ) {
+            prod.setCantidad(prod.getCantidad() + 1);
+        } else if (boton == 2) {
+            prod.setCantidad(prod.getCantidad() - 1);
+        }
+
+        this.adapter.notifyItemChanged(index);
     }
 }

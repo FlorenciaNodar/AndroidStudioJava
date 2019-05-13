@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -12,20 +13,68 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="35sp"
             android:id="@+id/nombre"
-            android:text="nombre"/>
-        <TextView
-            android:layout_width="match_parent"
+            android:layout_marginBottom="15dp"
+            android:layout_gravity="center_horizontal"/>
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/cantidad"
-            android:text="cantidad"/>
-        <TextView
-            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginBottom="15dp"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Cantidad"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:id="@+id/cantidad"
+                android:layout_marginRight="70dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Precio Unidad"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:id="@+id/precio"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/precio"
-            android:text="precio"/>
+            android:orientation="horizontal"
+            android:layout_marginBottom="15dp"
+            android:layout_gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/plus"
+                android:id="@+id/agregar"
+                android:layout_marginRight="30dp"/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/minus"
+                android:id="@+id/disminuir"/>
+        </LinearLayout>
 
     </LinearLayout>
 

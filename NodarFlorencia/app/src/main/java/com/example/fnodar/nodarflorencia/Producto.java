@@ -3,18 +3,8 @@ package com.example.fnodar.nodarflorencia;
 public class Producto {
 
     private String nombre;
-    private String cantidad;
+    private Integer cantidad;
     private Double precioUnidad;
-
-    public Producto(String nombre, String cantidad, Double precioUnidad) {
-        this.nombre = nombre;
-        this.cantidad = cantidad;
-        this.precioUnidad = precioUnidad;
-    }
-
-    public Producto() {
-
-    }
 
     public String getNombre() {
         return nombre;
@@ -24,28 +14,30 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public String getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(String cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public Double getPrecioUnidad() {
+    public Double getPrecio() {
         return precioUnidad;
     }
 
-    public void setPrecioUnidad(Double precioUnidad) {
-        this.precioUnidad = precioUnidad;
+    public void setPrecio(Double precio) {
+        this.precioUnidad = precio;
     }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+
 
     @Override
     public String toString() {
         return "Producto{" +
                 "nombre='" + nombre + '\'' +
-                ", cantidad='" + cantidad + '\'' +
-                ", precio='" + precioUnidad + '\'' +
+                ", precio=" + precioUnidad +
+                ", cantidad=" + cantidad +
                 '}';
     }
 }
