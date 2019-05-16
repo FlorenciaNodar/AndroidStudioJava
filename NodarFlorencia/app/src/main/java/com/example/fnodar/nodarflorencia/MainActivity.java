@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
 
         Handler handler = new Handler(this);
 
-        MyTheard m = new MyTheard(handler, "http://172.17.88.33:8080/listaProductos.xml", TEXTO);
+        MyTheard m = new MyTheard(handler, "http://172.18.13.209:8080/listaProductos.xml", TEXTO);
         m.start();
 
         adapter = new MyAdapter(productos, handler);

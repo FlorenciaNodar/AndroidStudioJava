@@ -21,40 +21,45 @@ public class XmlParser {
             xml.setInput(new StringReader(productos));
 
             int event = xml.getEventType();
+            Producto p = null;
 
             while (event != XmlPullParser.END_DOCUMENT) {
+
                 if (event == XmlPullParser.START_TAG) {
-
                     if ("producto".equals(xml.getName())) {
-                        Log.d("GETNAME",xml.getName());
-                        Producto p = new Producto();
-                        xml.nextTag();
-
-                        if ("id".equals(xml.getName())) {
-                           xml.nextText();
-                         xml.nextTag();
-                       }
+                        Log.d("GETNAME", xml.getName());
+                        p = new Producto();
+                    }
 
                         if ("nombre".equals(xml.getName())) {
-                            Log.d("GETNOMBRE",xml.getName());
+                            if (p != null) {
+                                Log.d("GETNOMBRE", xml.getName());
 
-                            p.setNombre(xml.nextText());
-                            xml.nextTag();
+                                p.setNombre(xml.nextText());
+                            }
                         }
 
                         if ("precio".equals(xml.getName())) {
+                         if(p != null){
                             Log.d("GETPRECIO",xml.getName());
 
                             p.setPrecio(Double.parseDouble(xml.nextText()));
-                            xml.nextTag();
                         }
+                    }
 
                         if ("cantidad".equals(xml.getName())) {
+                        if(p != null){
                             p.setCantidad(Integer.parseInt(xml.nextText()));
-                            xml.nextTag();
+
+                        }
                         }
 
+
+                }else if(event == XmlPullParser.END_TAG){
+                    if ("producto".equals(xml.getName())) {
+
                         prods.add(p);
+
                     }
                 }
 
