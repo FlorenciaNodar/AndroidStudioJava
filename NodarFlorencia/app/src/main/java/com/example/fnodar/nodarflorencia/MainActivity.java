@@ -1,5 +1,6 @@
 package com.example.fnodar.nodarflorencia;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
@@ -21,8 +22,7 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
     private static MainActivity instance;
     public MyAdapter adapter;
     public List<Producto> productos = new ArrayList<>();
-    public static  final int TEXTO = 1;
-
+    Handler handler;
     public static MainActivity getInstance() {
         return instance;
     }
@@ -35,12 +35,13 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
 
         RecyclerView rvProductos = super.findViewById(R.id.rvProductos);
 
-        Handler handler = new Handler(this);
+        handler = new Handler(this);
 
-        MyTheard m = new MyTheard(handler, "http://172.18.13.209:8080/listaProductos.xml", TEXTO);
-        m.start();
+       // MyTheard m = new MyTheard(handler, "http://192.168.2.180:8080/productos.xml", TEXTO);
+        this.Thread(handler, "http://192.168.2.180:8080/productos.xml", 1);
+        Intent i = getIntent();
 
-        adapter = new MyAdapter(productos, handler);
+        adapter = new MyAdapter(productos, handler, i.getStringExtra("rol"));
 
         rvProductos.setAdapter(adapter);
 
@@ -51,10 +52,12 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
         instance = this;
 
 
-
     }
 
-
+    private void Thread(Handler handler,String url,  int number ){
+        MyTheard m = new MyTheard(handler, url, number);
+        m.start();
+    }
 
     @Override
     public boolean handleMessage(Message msg) {
@@ -71,14 +74,16 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
 
     public void controlStock(Integer boton, int index) {
 
-        Producto prod = productos.get(index);
+            Producto prod = productos.get(index);
 
-        if (boton == 1 ) {
-            prod.setCantidad(prod.getCantidad() + 1);
-        } else if (boton == 2) {
-            prod.setCantidad(prod.getCantidad() - 1);
-        }
+            if (boton == 1 ) {
+                prod.setCantidad(prod.getCantidad() + 1);
+            } else if (boton == 2) {
+                prod.setCantidad(prod.getCantidad() - 1);
+            }
 
-        this.adapter.notifyItemChanged(index);
+            this.adapter.notifyItemChanged(index);
+
+
     }
 }

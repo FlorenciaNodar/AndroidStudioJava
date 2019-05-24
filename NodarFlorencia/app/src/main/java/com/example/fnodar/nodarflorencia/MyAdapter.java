@@ -13,12 +13,13 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
 
     private List<Producto> productos;
+    private String rol;
     private Handler handler;
 
-    public MyAdapter(List<Producto> productos, Handler handler) {
+    public MyAdapter(List<Producto> productos, Handler handler,String rol) {
         this.productos = productos;
         this.handler = handler;
-
+        this.rol = rol;
     }
 
     @Override
@@ -26,7 +27,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
 
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_recycle, viewGroup,false);
 
-        return new MyViewHolder(v);
+        return new MyViewHolder(v, rol);
     }
 
     @Override
@@ -44,6 +45,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
 
     public void setProductos(List<Producto> p) {
         this.productos = p;
+    }
+
+    public void setRol(String p) {
+        this.rol = p;
     }
 
     @Override

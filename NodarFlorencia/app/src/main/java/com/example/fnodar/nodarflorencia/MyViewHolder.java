@@ -14,11 +14,13 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
     public ImageView tvAgregar;
     public ImageView tvDisminuir;
 
-    public MyViewHolder(@NonNull View itemView) {
+    public MyViewHolder(@NonNull View itemView, String rol) {
         super(itemView);
-
-        itemView.findViewById(R.id.agregar).setOnClickListener(this);
-        itemView.findViewById(R.id.disminuir).setOnClickListener(this);
+        String r = rol;
+        if(r.equals("Admin")){
+            itemView.findViewById(R.id.agregar).setOnClickListener(this);
+            itemView.findViewById(R.id.disminuir).setOnClickListener(this);
+        }
 
         tvAgregar = itemView.findViewById(R.id.agregar);
         tvDisminuir = itemView.findViewById(R.id.disminuir);
@@ -29,6 +31,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
 
     @Override
     public void onClick(View v) {
+
         if (v.getId() == tvAgregar.getId())
         {
             MainActivity.getInstance().controlStock(1, this.getLayoutPosition());
